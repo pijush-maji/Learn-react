@@ -26,9 +26,13 @@ function App() {
     },
   ];
 
+  const onGetDataFromNewExpenseHandler = (newExpense) =>{
+    console.log(newExpense);
+  }
+
   return (
     <div>
-      <NewExpense />
+      <NewExpense onGetDataFromNewExpense={onGetDataFromNewExpenseHandler} />
       <ExpenseItem expense={expenses[0]}></ExpenseItem>
       <ExpenseItem expense={expenses[1]}></ExpenseItem>
       <ExpenseItem expense={expenses[2]}></ExpenseItem>
