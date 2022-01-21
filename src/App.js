@@ -1,11 +1,12 @@
+import { useState } from "react";
 import ExpenseItem from "./component/ExpenseItem";
 import NewExpense from "./component/NewExpense/NewExpense";
 
 
 function App() {
 
-  const expenses = [
-    {
+    
+  const intialExpenes =[{
       id: 'e1',
       title: 'Toilet Paper',
       amount: 94.12,
@@ -25,18 +26,29 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
+  const [expenses, setExpenses] = useState(intialExpenes);
 
   const onGetDataFromNewExpenseHandler = (newExpense) =>{
-    console.log(newExpense);
+   
+    //if state depends on previous state, correct way is-update the state using function
+    //below function first it'll add the new value in a new array then push the
+    //previous state value in the array
+    setExpenses((prvExpenses) =>{
+      return [newExpense,...prvExpenses]
+    });
+    
+    console.log(expenses);
   }
 
   return (
     <div>
       <NewExpense onGetDataFromNewExpense={onGetDataFromNewExpenseHandler} />
-      <ExpenseItem expense={expenses[0]}></ExpenseItem>
+      
+      {expenses.map(exp => <ExpenseItem key={exp.id} expense={exp}/>)}
+      {/* <ExpenseItem expense={expenses[0]}></ExpenseItem>
       <ExpenseItem expense={expenses[1]}></ExpenseItem>
       <ExpenseItem expense={expenses[2]}></ExpenseItem>
-      <ExpenseItem expense={expenses[3]}></ExpenseItem>
+      <ExpenseItem expense={expenses[3]}></ExpenseItem> */}
     </div>
   );
 }
